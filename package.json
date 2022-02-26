@@ -7,10 +7,8 @@
     "build": "webpack",
     "build:dev": "npm run build -- --mode development --watch",
     "build:prod": "npm run build -- --mode production",
-    "start": "browser-sync dist -s --cwd --port 8080 -w -f *.js,*.html,*.css --reload-delay 2000 --no-notify --no-ui",
     "start:dev": "concurrently \"npm run build:dev\" \"npm run start\"",
-    "start:prod": "npm run build:prod && static-server dist -p 80",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest ./tests/*"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +24,8 @@
     "css-loader": "^6.5.1",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
+    "jest": "^27.5.1",
+    "jest-fetch-mock": "^3.0.3",
     "mini-css-extract-plugin": "^2.4.6",
     "node-sass": "^7.0.1",
     "react": "^17.0.2",

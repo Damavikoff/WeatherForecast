@@ -12,15 +12,16 @@ class HourlyWeatherItem extends Component {
 		}
 	}
 	render() {
+		const itemData = this.data
 		return (
 			<>
 				<div className="cell">
 					<div className="upper">
-						<span className="degrees">{this.data.temp}</span>
+						<span className="degrees">{itemData.temp}</span>
 					</div>
-					<div className="lower" style={{height: `${this.data.diffHeight}em`}}></div>
-					<div className="meta">{this.data.time}</div>
-					<div className="meta">{this.data.date}</div>
+					<div className="lower" style={{height: `${itemData.diffHeight}em`}}></div>
+					<div className="meta">{itemData.time}</div>
+					<div className="meta">{itemData.date}</div>
 				</div>
 			</>
 		)

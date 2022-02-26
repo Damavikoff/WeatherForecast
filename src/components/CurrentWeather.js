@@ -6,7 +6,7 @@ class CurrentWeather extends Component {
     
 	get data() {
 		const data = this.props.data
-		const weather = data.weather[0];
+		const weather = data.weather[0]
 		return {
 			date: formatDate(data.dt, 'mmm d, hh:mi'),
 			temp: Math.round(data.temp),
@@ -25,31 +25,32 @@ class CurrentWeather extends Component {
 	}
 
 	render() {
+		const itemData = this.data
 		return (
 			<>
 				<div className="centering segment">
 					<div className="centered content">
 						<div className="center aligned image container">
-							<img src={this.data.weatherIcon} alt="" />
+							<img src={itemData.weatherIcon} alt="" />
 							<div className="small header">
 								<div className="sub header">
-									{this.data.date}
+									{itemData.date}
 								</div>
 							</div>
 						</div>
 						<div className="center aligned container">
 							<div className="large light header">
-								<div className="degrees">{this.data.temp}</div>
+								<div className="degrees">{itemData.temp}</div>
 							</div>
 						</div>
 						<div className="container">
 							<div className="small header">
 								<div className="sub header">
-									{this.data.location}
+									{itemData.location}
 								</div>
-								<div className="content">{this.data.weatherTitle}</div>
+								<div className="content">{itemData.weatherTitle}</div>
 								<div className="sub header">
-									Feels like <span className="degrees">{this.data.feelsLike}</span>
+									Feels like <span className="degrees">{itemData.feelsLike}</span>
 								</div>
 							</div>
 						</div>
@@ -57,22 +58,22 @@ class CurrentWeather extends Component {
 							<div className="small light image header">
 								<img src={ICO_SOURCE + 'barometer.svg'} alt="" />
 								<div className="sub header">
-									{this.data.pressure} hPa
+									{itemData.pressure} hPa
 								</div>
 							</div>
 							<div className="small light image header">
 								<img src={ICO_SOURCE + 'humidity.svg'} alt="" />
 								<div className="sub header">
-										{this.data.humidity}%
+										{itemData.humidity}%
 								</div>
 							</div>
 							<div className="small light image header">
 								<img src={ICO_SOURCE + 'wind.svg'} alt="" />
 								<div className="sub header">
-									{this.data.windSpeed} m/s
+									{itemData.windSpeed} m/s
 								</div>
 								<img src={ICO_SOURCE + 'pressure-low.svg'}
-									style={{transform: `rotate(${this.data.windDeg}deg)`}}
+									style={{transform: `rotate(${itemData.windDeg}deg)`}}
 									className="wind" alt="" />
 							</div>
 						</div>
@@ -80,19 +81,19 @@ class CurrentWeather extends Component {
 							<div className="small light image header">
 								<img src={ICO_SOURCE + 'sunrise.svg'} alt="" />
 								<div className="sub header">
-									{this.data.sunrise}
+									{itemData.sunrise}
 								</div>
 							</div>
 							<div className="small light image header">
 								<img src={ICO_SOURCE + 'sunset.svg'} alt="" />
 								<div className="sub header">
-									{this.data.sunset}
+									{itemData.sunset}
 								</div>
 							</div>
 							<div className="small light image header">
 								<img src={ICO_SOURCE + 'cloudy.svg'} alt="" />
 								<div className="sub header">
-									{this.data.clouds}%
+									{itemData.clouds}%
 								</div>
 							</div>
 						</div>

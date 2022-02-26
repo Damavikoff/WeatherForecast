@@ -37,8 +37,7 @@ module.exports = {
             filename: 'index.html',
             template: resolvePath('assets/index.html'),
             templateParameters: {
-                title: 'Weather Forecast',
-                rootID: 'app',
+                title: 'Weather Forecast'
             },
         }),
     ]

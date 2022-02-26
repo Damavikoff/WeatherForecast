@@ -1,5 +1,4 @@
-import { createStore } from 'redux';
-
+import { createStore } from 'redux'
 import { cityList } from './defaults'
 
 function reducer(state, action) {
@@ -14,12 +13,8 @@ function reducer(state, action) {
 			return {
 				...state,
 				list: state.list.map(el => {
-					const obj = {...el}
-					if (obj.name === 'Local') {
-						obj.latitude = latitude
-						obj.longitude = longitude
-					}
-					return obj
+					if (el.name === 'Local') return {...el, latitude, longitude}
+					return {...el}
 				})
 			}
 		case 'state/ready':

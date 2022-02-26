@@ -28,7 +28,7 @@ class App extends Component {
 		try {
 			const position = await getPosition()
 			this.props.setCoords(position.coords)
-			await this.props.setLocation(0)
+			this.props.setLocation(0)
 			await this.getForecast()
 		} catch (error) {
 			this.setState({
@@ -36,7 +36,7 @@ class App extends Component {
 				errorMessage: typeof error === 'object' ? error.message : error
 			})
 		} finally {
-			this.props.setState(true)
+			this.props.setReadyState(true)
 		}
 	}
 
@@ -48,7 +48,7 @@ class App extends Component {
 	async getForecast() {
 
 		const timer = setTimeout(() => {
-			this.props.setState(false)
+			this.props.setReadyState(false)
 		}, 700)
 
 		try {
@@ -57,7 +57,7 @@ class App extends Component {
 			const forecast = await doRequest(prepareUrl(FRC_URL, { latitude, longitude }))
 			forecast.current.location = location[0].local_names.ascii ?? location[0].local_names.en
 			this.setState({
-					data: forecast
+				data: forecast
 			})
 		} catch (error) {
 				this.setState({
@@ -66,7 +66,7 @@ class App extends Component {
 				})
 		} finally {
 			clearTimeout(timer)
-			this.props.setState(true)
+			this.props.setReadyState(true)
 		}
 	}
 
@@ -88,39 +88,39 @@ class App extends Component {
 				<Loader />
 			)
 		}
-		if (this.state.isSuccessful) {
+		if (!this.state.isSuccessful) {
 			return (
-				<>
-					<div className="basic segments">
-						<div className="segment">
-							<div className="basic segments">
-								<div className="segment">
-									<SearchInput value={this.props.location.value}
-															 data={this.props.locationList}
-															 label="Choose location"
-															 onChange={this.setActiveLocation}/>
-								</div>
-								<CurrentWeather data={{...this.currentWeather}} />
-								<div className="scrolling-x segment">
-									<HourlyWeatherList data={this.hourlyWeather}/>
-								</div>
-							</div>
-							<div className="scrolling">
-								{this.dailyWeather}
-							</div>
-						</div>
-					</div>
-				</>
+				<ErrorMessage description={this.state.errorMessage}/>
 			)
 		}
 		return (
-				<ErrorMessage description={this.state.errorMessage}/>
+			<>
+				<div className="basic segments">
+					<div className="segment">
+						<div className="basic segments">
+							<div className="segment">
+								<SearchInput value={this.props.location.value}
+														 data={this.props.locationList}
+														 label="Choose location"
+														 onChange={this.setActiveLocation}/>
+							</div>
+							<CurrentWeather data={{...this.currentWeather}} />
+							<div className="scrolling-x segment">
+								<HourlyWeatherList data={this.hourlyWeather}/>
+							</div>
+						</div>
+						<div className="scrolling">
+							{this.dailyWeather}
+						</div>
+					</div>
+				</div>
+			</>
 		)
 	}
 }
 
 const mapStateToProps = state => {
-	const { value, latitude, longitude} = state.location
+	const { value, latitude, longitude } = state.location
 	return {
 		locationList: state.list,
 		location: { value, latitude, longitude },
@@ -129,9 +129,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-	setState: (state) => dispatch(setReadyState(state)),
+	setReadyState: (state) => dispatch(setReadyState(state)),
 	setCoords: (coords) => dispatch(setCurrentCoords(coords)),
 	setLocation: (location) => dispatch(setActiveLocation(location))
 })
 
-export default connect(mapStateToProps,mapDispatchToProps)(App);
+export default connect(mapStateToProps,mapDispatchToProps)(App)
